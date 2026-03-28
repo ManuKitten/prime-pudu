@@ -3,12 +3,13 @@
         <title>PrimePudu</title>
         <meta name="keywords" content="Math, Free, Pudu, Prime, PrimePudu, Primes, Pudus, Learn, Friendly, Fun, Learning">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
     </head>
     <body class="signinTab">
         <div id="mainGridDiv">
-            <a href="..">
-                <img src="../stock-images/primepudu.png" width="300px" style="place-self: center;">
+            <a href="/">
+                <img src="/stock-images/primepudu.png" width="300px" style="place-self: center;">
             </a>
             <p>Sign In to PrimePudu</p>
             <form id="signInForm" style="text-align: left;">
@@ -31,7 +32,7 @@
                 return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
             }
 
-            fetch("../accounts.json").then(response => response.json()).then(accounts => {
+            fetch("/accounts.json").then(response => response.json()).then(accounts => {
                 form.addEventListener("submit", async function(event) {
                     event.preventDefault();
                     
@@ -50,7 +51,7 @@
                             localStorage.setItem("password", passwordInput);
                             localStorage.setItem("hashName", hashedUsername);
 
-                            window.location.href = "..";
+                            window.location.href = "/";
                         } else {
                             errorText.style.display = "block";
                             errorText.textContent = "Error: Password incorrect"
