@@ -1,0 +1,17 @@
+<html lang="en">
+    <head>
+        <title>PrimePudu | Learn</title>
+        <meta name="keywords" content="Math, Free, Pudu, Prime, PrimePudu, Primes, Pudus, Learn, Friendly, Fun, Learning">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body class="learnTab">
+        <div id="mainContentDiv"></div>
+        <script>
+            fetch("lessons.json").then(response => response.json()).then(lessons => {
+                document.getElementsByTagName("title")[0].innerHTML = "PrimePudu | " + lessons[Object.keys(lessons)[0]].name;
+                document.getElementById("mainContentDiv").innerHTML = lessons[Object.keys(lessons)[0]].content;
+            })
+        </script>
+    </body>
+</html>
