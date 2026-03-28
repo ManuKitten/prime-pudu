@@ -10,16 +10,22 @@
     <body class="mainPage">
         <header class="pageHeader">
             <div id="headerDiv">
-                <a href="..">
+                <a href="">
                     <img src="stock-images/primepudu.png" width="100">
                 </a>
+                <div class="signInDiv">
+                    <button id="signInButton" onclick="window.location.href = '../signin'">Sign In</button>
+                </div>
+                <div id="signedDiv" class="signInDiv">
+                    <p>Username</p>
+                </div>
             </div>
         </header>
         <div id="introductionDiv">
             <div id="introductionDivLeft">
                 <img src="stock-images/primepudu.png" width="450" style='grid-area: "b"; place-self: center;'>
                 <p id="descp">The cutest math project out there.</p>
-                <button id="descbutton">Get Started with PrimePudu</button>
+                <button id="descbutton" onclick="window.location.href = 'signin'">Get Started with PrimePudu</button>
             </div>
             <div id="introductionDivRight"></div>
         </div>
@@ -29,5 +35,6 @@
             <p>PrimePudu's lessons are aimed at being totally understandable, with many examples to make sure the content is learned.</p><br>
             <button onclick="window.location.href = 'learn/?lesson=negative-numbers'">Try an example lesson</button>
         </div>
+        <script src="master.js"></script>
     </body>
 </html>

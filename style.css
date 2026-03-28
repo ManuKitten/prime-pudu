@@ -15,6 +15,7 @@
     --black2: rgb(65, 65, 85);
 
     --gray1: rgb(154, 154, 161);
+    --gray2: rgb(224, 224, 229);
 }
 
 a, a:active, a:hover {
@@ -56,6 +57,18 @@ textarea {
     margin-top: 40px;
     padding: 15px;
     border-radius: 15px;
+}
+
+input {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--gray2);
+    color: var(--black1);
+    width: 200px;
+    font-family: "Chewy";
+} input:focus, input:active {
+    outline: none;
 }
 
 expression {
@@ -151,4 +164,40 @@ expression {
     display: flex;
     padding:18.5px;
     border-bottom: 1px solid var(--gray1);
+}
+
+.signInDiv {
+    margin-left: auto;
+}
+
+#signedDiv {
+    display: none;
+}
+
+#signInButton {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.signinTab {
+    text-align: center;
+    padding: 400px;
+    padding-top: 100px;
+    padding-bottom: 0px;
+
+    label {
+        margin-left: 10px;
+        color: var(--black1)
+    }
+
+    #mainGridDiv {
+        display: grid;
+        grid-template-rows: 200px auto auto;
+        gap: 20px;
+    }
+
+    #signinForm {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
