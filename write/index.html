@@ -1,78 +1,82 @@
 <html lang="en">
-    <head>
-        <title>PrimePudu | Write</title>
-        <meta name="keywords" content="Math, Free, Pudu, Prime, PrimePudu, Primes, Pudus, Learn, Friendly, Fun, Learning">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/style.css">
-        <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    </head>
-    <body class="writeTab">
-        <header class="pageHeader">
-            <div id="headerDiv">
-                <a href="/">
-                    <img src="/stock-images/primepudu.png" width="100">
-                </a>
-                <div class="signInDiv">
-                    <button id="signInButton" onclick="window.location.href = '/signin'">Sign In</button>
-                </div>
-                <div id="signedDiv" class="signInDiv">
-                    <p>Username</p>
-                </div>
+
+<head>
+    <title>PrimePudu | Write</title>
+    <meta name="keywords" content="Math, Free, Pudu, Prime, PrimePudu, Primes, Pudus, Learn, Friendly, Fun, Learning">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+
+<body class="writeTab">
+    <header class="pageHeader">
+        <div id="headerDiv">
+            <a href="../">
+                <img src="../stock-images/primepudu.png" width="100">
+            </a>
+            <div class="signInDiv">
+                <button id="signInButton" onclick="window.location.href = '/signin'">Sign In</button>
             </div>
-        </header>
-        <div id="mainContentDiv">
-            <h1>Article Writing Preview Tool</h1>
-            <p>Preview for writing articles, useful because articles are later stored in JSON code, making them harder to visualize.</p>
-            <div id="textDiv">
-                <div id="textareaOptionsDiv">
-                    <button class="textareaOptionButton" onclick="copyTextarea()">Copy Text</button>
-                </div>
-                <textarea spellcheck="false" id="writeTextarea"></textarea>
-            </div><br>
-            <button style="margin: 40px; margin-top: 0px;" onclick="replaceContent()">Preview</button>
-            <div id="content"></div>
+            <div id="signedDiv" class="signInDiv">
+                <p>Username</p>
+            </div>
         </div>
-        <script src="/master.js"></script>
-        <script>
-            const textarea = document.getElementById("mainContentDiv").getElementsByTagName("textarea")[0];
-            if (localStorage.getItem("writeTextMemory")) {
-                textarea.value = localStorage.getItem("writeTextMemory");
-                replaceContent();
-            }
+    </header>
+    <div id="mainContentDiv">
+        <h1>Article Writing Preview Tool</h1>
+        <p>Preview for writing articles, useful because articles are later stored in JSON code, making them harder to
+            visualize.</p>
+        <div id="textDiv">
+            <div id="textareaOptionsDiv">
+                <button class="textareaOptionButton" onclick="copyTextarea()">Copy Text</button>
+            </div>
+            <textarea spellcheck="false" id="writeTextarea"></textarea>
+        </div><br>
+        <button style="margin: 40px; margin-top: 0px;" onclick="replaceContent()">Preview</button>
+        <div id="content"></div>
+    </div>
+    <script src="../master.js"></script>
+    <script>
+        const textarea = document.getElementById("mainContentDiv").getElementsByTagName("textarea")[0];
+        if (localStorage.getItem("writeTextMemory")) {
+            textarea.value = localStorage.getItem("writeTextMemory");
+            replaceContent();
+        }
 
-            function replaceContent() {
-                localStorage.setItem("writeTextMemory", textarea.value)
-                document.getElementById("content").innerHTML = textarea.value;
-            }
+        function replaceContent() {
+            localStorage.setItem("writeTextMemory", textarea.value)
+            document.getElementById("content").innerHTML = textarea.value;
+        }
 
-            async function copyTextarea() {
-                await navigator.clipboard.writeText(String(textarea.value))
-            }
+        async function copyTextarea() {
+            await navigator.clipboard.writeText(String(textarea.value))
+        }
 
-            textarea.addEventListener("input", function(){
-                const cursorPos = textarea.selectionStart;
-                if (textarea.value[cursorPos-1] == ">") {
-                    try {
-                        for (let i = 1; i < textarea.value.length; i++) {
-                            if (textarea.value[cursorPos - 1 - i] == "<") {
-                                const tag = textarea.value.slice((cursorPos - i), cursorPos - 1).split(" ")[0];
+        textarea.addEventListener("input", function () {
+            const cursorPos = textarea.selectionStart;
+            if (textarea.value[cursorPos - 1] == ">") {
+                try {
+                    for (let i = 1; i < textarea.value.length; i++) {
+                        if (textarea.value[cursorPos - 1 - i] == "<") {
+                            const tag = textarea.value.slice((cursorPos - i), cursorPos - 1).split(" ")[0];
 
-                                const banned = ["img"]
+                            const banned = ["img"]
 
-                                if (!banned.includes(String(tag)) && tag[0] != "/") {
-                                    const closingTag = "</" + tag + ">";
-                                    textarea.value = textarea.value.slice(0, cursorPos) + closingTag + textarea.value.slice(cursorPos, textarea.value.length);
-                                }
-                                break;
-                                
+                            if (!banned.includes(String(tag)) && tag[0] != "../") {
+                                const closingTag = "</" + tag + ">";
+                                textarea.value = textarea.value.slice(0, cursorPos) + closingTag + textarea.value.slice(cursorPos, textarea.value.length);
                             }
+                            break;
+
                         }
-                    } catch {}
-                } else if (textarea.value[cursorPos - 1] == '"') {
-                    textarea.value = textarea.value.slice(0, cursorPos) + '"' + textarea.value.slice(cursorPos, textarea.value.length);
-                }
-                textarea.setSelectionRange(textarea.value.length - textarea.value.slice(cursorPos, textarea.value.length).length, textarea.value.length - textarea.value.slice(cursorPos, textarea.value.length).length);
-            })
-        </script>
-    </body>
+                    }
+                } catch { }
+            } else if (textarea.value[cursorPos - 1] == '"') {
+                textarea.value = textarea.value.slice(0, cursorPos) + '"' + textarea.value.slice(cursorPos, textarea.value.length);
+            }
+            textarea.setSelectionRange(textarea.value.length - textarea.value.slice(cursorPos, textarea.value.length).length, textarea.value.length - textarea.value.slice(cursorPos, textarea.value.length).length);
+        })
+    </script>
+</body>
+
 </html>
