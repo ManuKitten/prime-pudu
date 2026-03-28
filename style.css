@@ -1,0 +1,92 @@
+@font-face {
+    font-family: "Chewy";
+    src: url("Chewy-Regular.ttf");
+}
+
+:root {
+    --white1: rgb(240, 244, 247);
+    --white2: rgb(251, 252, 253);
+
+    --blue1: rgb(43, 118, 224);
+
+    --black1: rgb(3, 19, 41);
+    --black2: rgb(65, 65, 85);
+}
+
+body {
+    font-family: "Chewy";
+    margin: 0px;
+    background-color: var(--white2);
+}
+button {
+    font: inherit;
+    border: 0px solid var(--blue1);
+    background-color: var(--blue1);
+    color:var(--white1);
+    padding: 17px;
+    border-radius: 17px;
+} button:hover {
+    cursor: pointer;
+}
+
+h1 {
+    margin: 0px;
+    font-size: 52px;
+    color: var(--black1);
+}
+p {
+    margin: 0px;
+    font-size: 19px;
+    color: var(--black2);
+}
+
+
+/* MAIN PAGE */
+
+.mainPage {
+    #IntroductionDiv {
+        background-color: var(--white1);
+        display: grid;
+        grid-template: "a b" auto;
+        grid-template-columns: 50% 50%;
+    }
+
+    #IntroductionDivLeft {
+        grid-area: "a";
+        padding: 30px;
+        display: grid;
+        grid-template: "a" 300px "b" 60px "c" 40px;
+        gap: 20px;
+        padding-bottom: 50px;
+    }
+
+    #IntroductionDivRight {
+        grid-area: "b";
+        background-image: url("stock-images/pudu.png");
+        background-size: cover;
+        background-position: center;
+    }
+
+    #mainH1 {
+        grid-area: "b";
+        place-self: center;
+        font-size: 100px;
+        color: var(--blue1);
+    }
+
+    #descp {
+        grid-area: "a";
+        place-self: center;
+        font-size: 24px;
+        color: var(--black1);
+    }
+
+    #descbutton {
+        grid-area: "c";
+        place-self: center;
+    }
+
+    #infoDiv {
+        padding: 100px;
+    }
+}
