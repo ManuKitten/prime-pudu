@@ -6,11 +6,20 @@
         <link rel="stylesheet" href="../style.css">
     </head>
     <body class="learnTab">
+        <header class="pageHeader">
+            <div id="headerDiv">
+                <a id="mainPageLink" href="..">PrimePudu</a>
+            </div>
+        </header>
         <div id="mainContentDiv"></div>
         <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const lessonValue = urlParams.get('lesson');
+
             fetch("lessons.json").then(response => response.json()).then(lessons => {
-                document.getElementsByTagName("title")[0].innerHTML = "PrimePudu | " + lessons[Object.keys(lessons)[0]].name;
-                document.getElementById("mainContentDiv").innerHTML = lessons[Object.keys(lessons)[0]].content;
+                document.getElementsByTagName("title")[0].innerHTML = "PrimePudu | " + lessons[lessonValue].name;
+                document.getElementById("mainContentDiv").innerHTML = lessons[lessonValue].content;
             })
         </script>
     </body>

@@ -1,6 +1,10 @@
 {
     "negative-numbers": {
         "name": "Negative Numbers",
-        "content": "<h1>What are negative numbers?</h1><p>Negative numbers are any number below 0. At first, this idea might seem confusing, but they actually are really simple numbers.<br><br> Imagine you are facing forward. If you take 3 steps, now you are 3 steps ahead of your original position. Now if you take two steps back, you are now at position 1.</p><expression>3 - 2 = 1</expression><p>So</p>"
+        "content": "<h1>What are negative numbers?</h1><p>Negative numbers are any number below 0. At first, this idea might seem confusing, but they actually are really simple numbers.<br><br> Imagine you are facing forward. If you take 3 steps, now you are 3 steps ahead of your original position. Now if you take two steps back, you are now at position 1.</p><expression>3 - 2 = 1</expression>"
+    },
+    "sets": {
+        "name": "Sets",
+        "content": "<h1>Sets</h1><p>Sets are group of numbers</p>"
     }
 }

@@ -12,6 +12,13 @@
 
     --black1: rgb(3, 19, 41);
     --black2: rgb(65, 65, 85);
+
+    --gray1: rgb(154, 154, 161);
+}
+
+a, a:active, a:hover {
+    text-decoration: none;
+    color: inherit;
 }
 
 body {
@@ -35,7 +42,7 @@ h1 {
     font-size: 52px;
     color: var(--black1);
 }
-p {
+p, a {
     margin: 0px;
     font-size: 19px;
     color: var(--black2);
@@ -107,5 +114,17 @@ expression {
 .learnTab {
     #mainContentDiv {
         padding: 100px;
+        padding-top: 70px;
     }
+}
+
+#mainPageLink {
+    font-size: 30px;
+    color: var(--blue1);
+}
+
+.pageHeader #headerDiv {
+    display: flex;
+    padding:18.5px;
+    border-bottom: 1px solid var(--gray1);
 }
