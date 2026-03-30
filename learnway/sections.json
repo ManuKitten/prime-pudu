@@ -1,0 +1,23 @@
+{
+    "section000": {
+        "name": "Negative Numbers",
+        "desc": "This section introduces negative numbers, their origin and the many uses they have.",
+        "lessonstheme": "negative-numbers",
+        "color": "#2FD113",
+        "quizes": ["quizset0000", "quizset0001", "quizset0002", "quizset0003"]
+    },
+    "section001": {
+        "name": "Fractions",
+        "desc": "This section introduces fractions, how they were made, how they are better than division in most cases and how algebra uses them.",
+        "lessonstheme": "",
+        "color": "#132FD1",
+        "quizes": ["quizset0000", "quizset0001", "quizset0002", "quizset0003"]
+    },
+    "section002": {
+        "name": "Sets",
+        "desc": "This section introduces sets, how they work, how you can create your own and how they are fundamental in the axioms of math.",
+        "lessonstheme": "",
+        "color": "#D1132F",
+        "quizes": ["quizset0000", "quizset0001", "quizset0002", "quizset0003"]
+    }
+}

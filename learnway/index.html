@@ -8,7 +8,7 @@
     </head>
     <body class="learnwayBody">
         <div id="contentDiv">
-            <h1 id="lal">Learnway</h1>
+            <div id="sectionsDiv"></div>
         </div>
         <script src="../master.js"></script>
         <script>
@@ -19,6 +19,67 @@
             } else {
                 window.location.href = "../signin"
             }
+
+            const sectionsDiv = document.getElementById("sectionsDiv");
+
+            fetch("sections.json").then(response => response.json()).then(async sections => {
+                let accounts;
+                await fetch("../accounts.json").then(response => response.json()).then(accountsL => {
+                    accounts = accountsL;
+                })
+
+                Object.keys(sections).forEach(sectionName => {
+                    const section = sections[sectionName]
+
+                    if (accounts[localStorage.getItem("hashName")].progress.completed.includes(sectionName)) {
+                        var usableColor = "#f2d200";
+                    } else if (accounts[localStorage.getItem("hashName")].progress.unlocked.includes(sectionName)) {
+                        var usableColor = section.color;
+                    } else {
+                        var usableColor = "#999999";
+                    }
+
+                    const sectionDiv = document.createElement("div");
+                    sectionDiv.id = sectionName;
+                    sectionDiv.className = "section";
+
+                    const descDiv = document.createElement("div");
+                    descDiv.id = "sectionDesc";
+                    if (section.lessonstheme != "") {
+                        descDiv.onclick = () => {window.location.href = "../learn/?lesson=" + section.lessonstheme}
+                    }
+                    descDiv.innerHTML = `<h1>${section.name}</h1><p>${section.desc}</p>`;
+                    descDiv.style.backgroundColor = usableColor;
+                    sectionDiv.appendChild(descDiv);
+
+                    const quizzesDiv = document.createElement("div");
+                    quizzesDiv.id = "sectionGroup";
+                    for (let i = 0; i < 4; i++) {
+                        const div = document.createElement("div");
+                        div.style.backgroundColor = usableColor;
+                        const img = document.createElement("img");
+                        img.src = "../stock-images/sigma.png";
+                        div.appendChild(img);
+                        quizzesDiv.appendChild(div);
+                    }
+                    sectionDiv.appendChild(quizzesDiv);
+
+                    const testDiv = document.createElement("div");
+                    testDiv.id = "sectionQuiz";
+                    testDiv.innerHTML = `Take the quiz for: ${section.name}`;
+                    testDiv.style.backgroundColor = usableColor;
+                    sectionDiv.appendChild(testDiv);
+
+                    sectionsDiv.appendChild(sectionDiv);
+                })
+
+                for (let i = 0; i < sectionsDiv.children.length; i++) {
+                    const sectionChildren = sectionsDiv.children[i].querySelector("#sectionDesc").children
+                    for (let j = 0; j < sectionChildren.length; j++) {
+                        sectionChildren[j].className = "sectionpart"
+                    }
+                }
+            })
         </script>
     </body>
 </html>

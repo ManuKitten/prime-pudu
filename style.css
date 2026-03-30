@@ -233,8 +233,62 @@ expression {
 
 .learnwayBody {
     display: none;
+
     #contentDiv {
         padding: 100px;
+    }
+
+    #sectionsDiv {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    .section { 
+        margin-bottom: 120px;
+
+        #sectionDesc {
+            padding: 30px;
+            border-radius: 20px;
+            
+            .sectionpart {
+                color: var(--white1);
+            }
+        } #sectionDesc:hover {
+            cursor: pointer;
+        }
+
+        #sectionGroup {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            gap: 40px;
+            padding-left: 30px;
+
+            div {
+                color: var(--white1);
+                border-radius: 40%;
+                padding: 40px;
+                transition: 0.3s;
+
+                img {
+                    width: 60px;
+                    height: 60px;
+                }
+            } div:hover {
+                cursor: pointer;
+            }
+        }
+
+        #sectionQuiz {
+            text-align: center;
+            color: var(--white1);
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 25px;
+            transition: 0.3s;
+        } #sectionQuiz:hover {
+            cursor: pointer;
+        }
     }
 }
 

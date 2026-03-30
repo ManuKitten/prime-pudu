@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
-<body class="mainPage">
+<body class="mainPage" style="display: none;">
     <div id="introductionDiv">
         <div id="introductionDivLeft">
             <img src="stock-images/primepudu.png" width="450" style='grid-area: "b"; place-self: center;'>
@@ -31,6 +31,12 @@
     <script src="master.js"></script>
     <script>
         orderHeader(0);
+
+        if (localStorage.getItem("username")) {
+            window.location.href = "learnway";
+        } else {
+            document.getElementsByTagName("body")[0].style.display = "block";
+        }
     </script>
 </body>
 
