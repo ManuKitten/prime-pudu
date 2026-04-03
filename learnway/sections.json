@@ -4,20 +4,41 @@
         "desc": "This section introduces negative numbers, their origin and the many uses they have.",
         "lessonstheme": "negative-numbers",
         "color": "#2FD113",
-        "quizes": ["quizset0000", "quizset0001", "quizset0002", "quizset0003"]
+        "lightercolor": "#4FF335",
+        "colorlist": ["#576951", "#577A4D", "#549147", "#48A638", "#2FD113"],
+        "quizzes": [
+            ["quizset0000", "quizset0001", "quizset0002", "quizset0003"],
+            ["quizset0004", "quizset0005", "quizset0006", "quizset0007"],
+            ["quizset0008", "quizset0009", "quizset000a", "quizset000b"],
+            ["quizset000c", "quizset000d", "quizset000e", "quizset000f"]
+        ]
     },
     "section001": {
         "name": "Fractions",
         "desc": "This section introduces fractions, how they were made, how they are better than division in most cases and how algebra uses them.",
         "lessonstheme": "",
         "color": "#132FD1",
-        "quizes": ["quizset0000", "quizset0001", "quizset0002", "quizset0003"]
+        "lightercolor": "#354FF3",
+        "colorlist": ["#515769", "#4D577A", "#475491", "#3848A6", "#132FD1"],
+        "quizzes": [
+            ["quizset0010", "quizset0011", "quizset0012", "quizset0013"],
+            ["quizset0014", "quizset0015", "quizset0016", "quizset0017"],
+            ["quizset0018", "quizset0019", "quizset001a", "quizset001b"],
+            ["quizset001c", "quizset001d", "quizset001e", "quizset001f"]
+        ]
     },
     "section002": {
         "name": "Sets",
         "desc": "This section introduces sets, how they work, how you can create your own and how they are fundamental in the axioms of math.",
         "lessonstheme": "",
         "color": "#D1132F",
-        "quizes": ["quizset0000", "quizset0001", "quizset0002", "quizset0003"]
+        "lightercolor": "#F3354F",
+        "colorlist": ["#695157", "#7A4D57", "#914754", "#A63848", "#D1132F"],
+        "quizzes": [
+            ["quizset0020", "quizset0021", "quizset0022", "quizset0023"],
+            ["quizset0024", "quizset0025", "quizset0026", "quizset0027"],
+            ["quizset0028", "quizset0029", "quizset002a", "quizset002b"],
+            ["quizset002c", "quizset002d", "quizset002e", "quizset002f"]
+        ]
     }
 }

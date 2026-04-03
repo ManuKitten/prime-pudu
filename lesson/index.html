@@ -1,0 +1,128 @@
+<html lang="en">
+    <head>
+        <title>PrimePudu | Lesson</title>
+        <meta name="keywords" content="Math, Free, Pudu, Prime, PrimePudu, Primes, Pudus, Learn, Friendly, Fun, Learning">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body class="lessonBody">
+        <div id="contentDiv">
+            <div id="lessonElements">
+                <div id="upperbar">
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                    <div class="progressUnit"></div>
+                </div>
+                <div id="information"></div>
+                <form id="instantLessonForm">
+                    <textarea id="formTextarea"></textarea>
+                </form>
+                <button id="checkbutton">Check</button>
+            </div>
+            <div id="lessonCompleted">
+                <h1>Lesson Completed!</h1>
+                <p>Well Done!</p>
+                <button onclick="upgradeLessonsAndGo()">Continue</button>
+            </div>
+        </div>
+        <script src="../master.js"></script>
+        <script>
+            orderHeader(1);
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const quizValue = urlParams.get('quiz').slice(7, 11);
+
+            if (quizValue == null) {
+                window.location.href = "../learnway"
+            }
+
+            const upperbar = document.getElementById("upperbar")
+            const information = document.getElementById("information");
+            const instantLessonForm = document.getElementById("instantLessonForm");
+            const textarea = document.getElementById("formTextarea");
+            const checkbutton = document.getElementById("checkbutton");
+
+            let question = 0;
+
+            fetch("quizzes.json").then(response => response.json()).then(quizzes => {
+                const quiz = quizzes["quizset" + quizValue]
+
+                function translate(element) {
+                    switch (element) {
+                        case "write":
+                            return "textarea";
+                            break;
+                    }
+                }
+
+                function showOnly(tag) {
+                    for (let i = 0; i < instantLessonForm.children.length; i++) {
+                        const child = instantLessonForm.children[i]
+                        console.log(child.tagName)
+                        if (child.tagName.toLowerCase() != tag) {
+                            child.style.display = "none";
+                        }
+                    }
+                }
+
+                information.innerHTML = quiz[question][0]
+                showOnly(translate(quiz[question][1]))
+
+                checkbutton.addEventListener("click", function(){
+                    if (quiz[question][2] == textarea.value) {
+                        checkbutton.style.backgroundColor = "33cc33";
+                        checkbutton.textContent = "Correct";
+                        setTimeout(function(){
+                            information.style.opacity = "0";
+                            instantLessonForm.style.opacity = "0";
+
+                            setTimeout(function(){
+                                upperbar.children[question].style.backgroundColor = "var(--blue1)";
+                                question++;
+                                
+                                if (question < 10) {
+                                    information.innerHTML = quiz[question][0]
+                                    showOnly(translate(quiz[question][1]))
+                                    instantLessonForm.getElementsByTagName(translate(quiz[question][1]))[0].value = "";
+
+                                    setTimeout(function(){                            
+                                        information.style.opacity = "1";
+                                        instantLessonForm.style.opacity = "1";
+                                        checkbutton.style.backgroundColor = "var(--blue1)";
+                                        checkbutton.textContent = "Check";
+                                    }, 300);
+                                } else {
+                                    document.getElementById("lessonElements").style.opacity = "0";
+                                    setTimeout(function(){
+                                        document.getElementById("lessonElements").style.display = "none";
+                                        document.getElementById("lessonCompleted").style.display = "grid";
+                                        document.getElementById("lessonCompleted").style.opacity = "1"
+                                    }, 300)
+                                    
+                                    
+                                }
+                            }, 300)
+                        }, 300)
+                                                
+                    } else {
+                        checkbutton.style.backgroundColor = "cc3333";
+                        checkbutton.textContent = "Try again";
+                        setTimeout(function(){
+                            checkbutton.style.backgroundColor = "var(--blue1)";
+                            checkbutton.textContent = "Check";
+                        }, 700);
+                        
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>

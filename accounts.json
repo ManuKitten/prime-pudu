@@ -2,8 +2,10 @@
     "5b437e726ab0f9a8eee0edf6950415a0545a2c0d1ea9e8b9421fbeb1fd3723a3": {
         "password": "5efb6e1fae25321e060b45e74bb308655b0edbce2082d30e26a26006b2976524",
         "progress": {
-            "completed": ["section000"],
-            "unlocked": ["section001"]
+            "completed": [],
+            "individualSections": {
+                "section000": [0, 0, 0, 0]
+            }
         }
     } 
 }

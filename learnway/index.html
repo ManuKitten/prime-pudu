@@ -13,6 +13,9 @@
         <script src="../master.js"></script>
         <script>
             orderHeader(1);
+            document.getElementsByTagName("header")[0].style.position = "sticky";
+            document.getElementsByTagName("header")[0].style.top = "0";
+            document.getElementsByTagName("header")[0].style.backgroundColor = "var(--white2)";
 
             if (localStorage.getItem("username")) {
                 document.getElementsByClassName("learnwayBody")[0].style.display = "block";
@@ -27,21 +30,34 @@
                 await fetch("../accounts.json").then(response => response.json()).then(accountsL => {
                     accounts = accountsL;
                 })
+                const account = accounts[localStorage.getItem("hashName")]
 
                 Object.keys(sections).forEach(sectionName => {
                     const section = sections[sectionName]
 
-                    if (accounts[localStorage.getItem("hashName")].progress.completed.includes(sectionName)) {
-                        var usableColor = "#f2d200";
-                    } else if (accounts[localStorage.getItem("hashName")].progress.unlocked.includes(sectionName)) {
+                    if (account.progress.completed.includes(sectionName)) {
+                        var usableColor = "#f2d200";                        
+                        var lightColor = "#f3e311";
+                        var colorList = ["", "", "", "", "#f2d200"];
+                    } else if (Object.keys(account.progress.individualSections).includes(sectionName)) {
                         var usableColor = section.color;
+                        var lightColor = section.lightercolor;
+                        var colorList = section.colorlist;
                     } else {
                         var usableColor = "#999999";
+                        var colorList = ["#999999", "", "", "", ""];
                     }
+                    
 
                     const sectionDiv = document.createElement("div");
                     sectionDiv.id = sectionName;
                     sectionDiv.className = "section";
+                    if (Object.keys(sections).indexOf(sectionName) == 0) {
+                        sectionDiv.style.paddingTop = "0px";
+                    }
+                    if (Object.keys(sections).indexOf(sectionName) == Object.keys(sections).length - 1) {
+                        sectionDiv.style.borderBottom = "0px";
+                    }
 
                     const descDiv = document.createElement("div");
                     descDiv.id = "sectionDesc";
@@ -50,16 +66,49 @@
                     }
                     descDiv.innerHTML = `<h1>${section.name}</h1><p>${section.desc}</p>`;
                     descDiv.style.backgroundColor = usableColor;
+                    descDiv.addEventListener("mouseover", function(){
+                        descDiv.style.backgroundColor = lightColor;
+                    })
+                    descDiv.addEventListener("mouseleave", function(){
+                        descDiv.style.backgroundColor = usableColor;
+                    })
                     sectionDiv.appendChild(descDiv);
 
                     const quizzesDiv = document.createElement("div");
                     quizzesDiv.id = "sectionGroup";
+                    const figures = ["sigma", "x", "reals", "pi"]
+                    let lowest = 0;
                     for (let i = 0; i < 4; i++) {
                         const div = document.createElement("div");
-                        div.style.backgroundColor = usableColor;
+                        if (account.progress.individualSections[sectionName]) {
+                            div.style.backgroundColor = colorList[account.progress.individualSections[sectionName][i]];
+                            if (account.progress.individualSections[sectionName][i] < account.progress.individualSections[sectionName][lowest]) {
+                                lowest = i;
+                            }
+                        } else {
+                            div.style.backgroundColor = usableColor;
+                        }
                         const img = document.createElement("img");
-                        img.src = "../stock-images/sigma.png";
+                        img.src = `../stock-images/${figures[i % figures.length]}.png`;
                         div.appendChild(img);
+
+                        div.addEventListener("mouseover", function(){
+                            div.style.backgroundColor = usableColor;
+                        })
+                        div.addEventListener("mouseleave", function(){
+                            if (account.progress.individualSections[sectionName]) {
+                                div.style.backgroundColor = colorList[account.progress.individualSections[sectionName][i]];
+                            } else {
+                                div.style.backgroundColor = usableColor;
+                            }
+                        })
+
+                        if (account.progress.individualSections[sectionName] && account.progress.individualSections[sectionName][i] != 4) {
+                            div.addEventListener("click", function(){
+                                window.location.href = `../lesson/?quiz=${sections[sectionName].quizzes[i][account.progress.individualSections[sectionName][i]]}`; 
+                            })
+                        }
+
                         quizzesDiv.appendChild(div);
                     }
                     sectionDiv.appendChild(quizzesDiv);
@@ -67,7 +116,26 @@
                     const testDiv = document.createElement("div");
                     testDiv.id = "sectionQuiz";
                     testDiv.innerHTML = `Take the quiz for: ${section.name}`;
-                    testDiv.style.backgroundColor = usableColor;
+                    if (account.progress.individualSections[sectionName]) {
+                        testDiv.style.backgroundColor = colorList[account.progress.individualSections[sectionName][lowest]];
+                    } else {
+                        testDiv.style.backgroundColor = usableColor;
+                    }
+                    testDiv.addEventListener("mouseover", function(){
+                        if (account.progress.individualSections[sectionName] == [4, 4, 4, 4]) {
+                            testDiv.style.backgroundColor = lightColor;
+                        } else {
+                            testDiv.style.cursor = "not-allowed"
+                        }
+                        
+                    })
+                    testDiv.addEventListener("mouseleave", function(){
+                        if (account.progress.individualSections[sectionName]) {
+                            testDiv.style.backgroundColor = colorList[account.progress.individualSections[sectionName][lowest]];
+                        } else {
+                            testDiv.style.backgroundColor = usableColor;
+                        }
+                    })
                     sectionDiv.appendChild(testDiv);
 
                     sectionsDiv.appendChild(sectionDiv);

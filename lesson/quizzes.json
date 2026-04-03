@@ -1,0 +1,14 @@
+{
+    "quizset0000": [
+        ["pregunta1 (respuesta = 1)", "write", "1"],
+        ["pregunta2", "write", "2"],
+        ["pregunta3", "write", "3"],
+        ["pregunta4", "write", "4"],
+        ["pregunta5", "write", "5"],
+        ["pregunta6", "write", "6"],
+        ["pregunta7", "write", "7"],
+        ["pregunta8", "write", "8"],
+        ["pregunta9", "write", "9"],
+        ["pregunta10", "write", "10"]
+    ]
+}

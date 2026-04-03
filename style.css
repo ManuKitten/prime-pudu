@@ -57,6 +57,8 @@ textarea {
     margin-top: 40px;
     padding: 15px;
     border-radius: 15px;
+} textarea:focus, textarea:active {
+    outline: none;
 }
 
 input {
@@ -244,11 +246,15 @@ expression {
     }
 
     .section { 
-        margin-bottom: 120px;
+        padding-top: 90px;
+        padding-bottom: 90px;
+        border-bottom: 3px solid var(--gray2);
+        border-radius: 2px;
 
         #sectionDesc {
             padding: 30px;
             border-radius: 20px;
+            transition: 0.3s;
             
             .sectionpart {
                 color: var(--white1);
@@ -286,8 +292,61 @@ expression {
             border-radius: 20px;
             font-size: 25px;
             transition: 0.3s;
-        } #sectionQuiz:hover {
-            cursor: pointer;
+        }
+    }
+}
+
+.lessonBody {
+    #contentDiv {
+        padding: 100px;
+
+        #lessonElements {
+            width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            gap: 50px;
+            transition: 0.3s;
+
+            textarea {
+                margin-top: 0;
+                width: 100%;
+                height: 100px;
+                resize: none;
+            }
+
+            #upperbar {
+                display: flex;
+
+                .progressUnit {
+                    margin: 2px;
+                    width: 10%;
+                    border-radius: 6px;
+                    height: 20px;
+                    background-color: var(--gray1);
+                    transition: 0.2s;
+                }
+            }
+
+            #information {
+                color: var(--black1);
+                font-size: 21px;
+            }
+
+            #information, #instantLessonForm {
+                transition: 0.3s;
+            }
+        }
+
+        #lessonCompleted {
+            opacity: 0;
+            width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            display: none;
+            gap: 20px;
+            text-align: center;
+            transition: opacity 0.3s;
         }
     }
 }
