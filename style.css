@@ -3,6 +3,11 @@
     src: url("Chewy-Regular.ttf");
 }
 
+@font-face {
+    font-family: "Computer Modern";
+    src: url("cmunsl.ttf");
+}
+
 :root {
     --white1: rgb(240, 244, 247);
     --white2: rgb(251, 252, 253);
@@ -46,6 +51,9 @@ h1 {
     font-size: 52px;
     color: var(--black1);
 }
+h2 {
+    color: var(--black1);
+}
 p, a, li {
     margin: 0px;
     font-size: 19px;
@@ -74,7 +82,7 @@ input {
 }
 
 expression {
-    font-family: serif;
+    font-family: "Computer Modern";
     margin: 6px;
     margin-left: 20px;
     display: inline-block;

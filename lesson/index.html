@@ -29,12 +29,36 @@
             <div id="lessonCompleted">
                 <h1>Lesson Completed!</h1>
                 <p>Well Done!</p>
-                <button onclick="upgradeLessonsAndGo()">Continue</button>
+                <button id="continueButton">Continue</button>
             </div>
         </div>
         <script src="../master.js"></script>
         <script>
             orderHeader(1);
+
+            function upgradeLessonsAndGo(newSectionData) {
+                const targetAccountId = "5b437e726ab0f9a8eee0edf6950415a0545a2c0d1ea9e8b9421fbeb1fd3723a3";
+
+                fetch('http://localhost:3000/upgrade-lessons', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        accountId: targetAccountId,
+                        sectionName: newSectionData[0],
+                        lessonIndex: newSectionData[1]
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.href = "../learnway"; // Redirect after success
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
 
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
@@ -65,12 +89,35 @@
 
                 function showOnly(tag) {
                     for (let i = 0; i < instantLessonForm.children.length; i++) {
-                        const child = instantLessonForm.children[i]
-                        console.log(child.tagName)
+                        const child = instantLessonForm.children[i];
                         if (child.tagName.toLowerCase() != tag) {
                             child.style.display = "none";
                         }
                     }
+                }
+
+                async function getSNLesson(quizName) {
+                    const response = await fetch("../learnway/sections.json");
+                    const sections = await response.json();
+                    
+                    for (const sectionName of Object.keys(sections)) {
+                        const sectionQuizzes = sections[sectionName].quizzes;
+                        console.log(sectionQuizzes);
+                        console.log(quizName);
+                        
+                        if (sectionQuizzes[0]?.includes(quizName)) {
+                            return [sectionName, 0];
+                        } else if (sectionQuizzes[1]?.includes(quizName)) {
+                            return [sectionName, 1];
+                        } else if (sectionQuizzes[2]?.includes(quizName)) {
+                            return [sectionName, 2];
+                        } else if (sectionQuizzes[3]?.includes(quizName)) {
+                            return [sectionName, 3];
+                        }
+                    }
+                    
+                    // Optional: Return null or throw an error if no match found
+                    return null;
                 }
 
                 information.innerHTML = quiz[question][0]
@@ -101,13 +148,15 @@
                                     }, 300);
                                 } else {
                                     document.getElementById("lessonElements").style.opacity = "0";
+                                    getSNLesson("quizset" + quizValue).then(value => {
+                                        //console.log(value)
+                                        document.getElementById("continueButton").onclick = () => upgradeLessonsAndGo(value);
+                                    })
                                     setTimeout(function(){
                                         document.getElementById("lessonElements").style.display = "none";
                                         document.getElementById("lessonCompleted").style.display = "grid";
                                         document.getElementById("lessonCompleted").style.opacity = "1"
                                     }, 300)
-                                    
-                                    
                                 }
                             }, 300)
                         }, 300)

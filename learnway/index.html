@@ -11,7 +11,7 @@
             <div id="sectionsDiv"></div>
         </div>
         <script src="../master.js"></script>
-        <script>
+        <script type="module">
             orderHeader(1);
             document.getElementsByTagName("header")[0].style.position = "sticky";
             document.getElementsByTagName("header")[0].style.top = "0";
@@ -25,16 +25,27 @@
 
             const sectionsDiv = document.getElementById("sectionsDiv");
 
-            fetch("sections.json").then(response => response.json()).then(async sections => {
-                let accounts;
-                await fetch("../accounts.json").then(response => response.json()).then(accountsL => {
-                    accounts = accountsL;
-                })
-                const account = accounts[localStorage.getItem("hashName")]
+            let account;
+            async function loadUserProgress(accountId) {
+                try {
+                    const response = await fetch(`http://localhost:3000/get-account/${accountId}`);
+                    if (!response.ok) throw new Error('Account not found');
+                    const data = await response.json();
+                    // Example: Accessing the progress you just modified
+                    account = data;
+                    return data; // Return the data so await works properly
+                } catch (error) {
+                    console.error('Error:', error);
+                    throw error; // Re-throw so calling code knows it failed
+                }
+            }
 
+            // Call it with your target ID
+            await loadUserProgress(localStorage.getItem("hashName"));
+
+            fetch("sections.json").then(response => response.json()).then(sections => {
                 Object.keys(sections).forEach(sectionName => {
                     const section = sections[sectionName]
-
                     if (account.progress.completed.includes(sectionName)) {
                         var usableColor = "#f2d200";                        
                         var lightColor = "#f3e311";

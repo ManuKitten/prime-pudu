@@ -50,9 +50,9 @@
                         if (textarea.value[cursorPos - 1 - i] == "<") {
                             const tag = textarea.value.slice((cursorPos - i), cursorPos - 1).split(" ")[0];
 
-                            const banned = ["img"]
+                            const banned = ["img", "br"]
 
-                            if (!banned.includes(String(tag)) && tag[0] != "../") {
+                            if (!banned.includes(String(tag)) && tag[0] != "/") {
                                 const closingTag = "</" + tag + ">";
                                 textarea.value = textarea.value.slice(0, cursorPos) + closingTag + textarea.value.slice(cursorPos, textarea.value.length);
                             }
@@ -63,6 +63,9 @@
                 } catch { }
             } else if (textarea.value[cursorPos - 1] == '"') {
                 textarea.value = textarea.value.slice(0, cursorPos) + '"' + textarea.value.slice(cursorPos, textarea.value.length);
+            }
+            else if (textarea.value[cursorPos - 1] == '(') {
+                textarea.value = textarea.value.slice(0, cursorPos) + ')' + textarea.value.slice(cursorPos, textarea.value.length);
             }
             textarea.setSelectionRange(textarea.value.length - textarea.value.slice(cursorPos, textarea.value.length).length, textarea.value.length - textarea.value.slice(cursorPos, textarea.value.length).length);
         })
