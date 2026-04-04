@@ -28,7 +28,7 @@
             let account;
             async function loadUserProgress(accountId) {
                 try {
-                    const response = await fetch(`http://localhost:3000/get-account/${accountId}`);
+                    const response = await fetch(`/get-account/${accountId}`);
                     if (!response.ok) throw new Error('Account not found');
                     const data = await response.json();
                     // Example: Accessing the progress you just modified
