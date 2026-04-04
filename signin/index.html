@@ -34,35 +34,49 @@
             return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
         }
 
-        fetch("../accounts.json").then(response => response.json()).then(accounts => {
-            form.addEventListener("submit", async function (event) {
-                event.preventDefault();
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
 
-                const usernameInput = document.getElementById("username").value;
-                const passwordInput = document.getElementById("password").value;
-                const hashedUsername = await sha256(usernameInput);
-                const hashedPassword = await sha256(passwordInput);
+            const usernameInput = document.getElementById("username").value;
+            const passwordInput = document.getElementById("password").value;
+            const hashedUsername = await sha256(usernameInput);
+            const hashedPassword = await sha256(passwordInput);
 
-                const errorText = document.getElementById("errorText");
+            const errorText = document.getElementById("errorText");
 
-                console.log(Object.keys(accounts));
-                console.log(hashedUsername);
-                if (Object.keys(accounts).includes(hashedUsername)) {
-                    if (accounts[hashedUsername].password == hashedPassword) {
-                        localStorage.setItem("username", usernameInput);
-                        localStorage.setItem("password", passwordInput);
-                        localStorage.setItem("hashName", hashedUsername);
+            let account;
+            async function getAccount(accountId) {
+                try {
+                    const response = await fetch(`/get-account/${accountId}`);
+                    if (!response.ok) throw new Error('Account not found');
+                    const data = await response.json();
+                    // Example: Accessing the progress you just modified
+                    account = data;
+                    return data; // Return the data so await works properly
+                } catch (error) {
+                    account = false;
+                    console.error('Error:', error);
+                }
+            }
 
-                        window.location.href = localStorage.getItem("previousUrl") || "..";
-                    } else {
-                        errorText.style.display = "block";
-                        errorText.textContent = "Error: Password incorrect"
-                    }
+            await getAccount(hashedUsername);
+
+            console.log(account)
+            if (account) {
+                if (account.password == hashedPassword) {
+                    localStorage.setItem("username", usernameInput);
+                    localStorage.setItem("password", passwordInput);
+                    localStorage.setItem("hashName", hashedUsername);
+
+                    window.location.href = localStorage.getItem("previousUrl") || "..";
                 } else {
                     errorText.style.display = "block";
-                    errorText.textContent = "Error: User doesn't exist"
+                    errorText.textContent = "Error: Password incorrect"
                 }
-            })
+            } else {
+                errorText.style.display = "block";
+                errorText.textContent = "Error: User doesn't exist";
+            }
         })
     </script>
 </body>
