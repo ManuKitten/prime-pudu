@@ -287,6 +287,10 @@ expression {
     #sectionsDiv {
         margin-left: 20%;
         margin-right: 20%;
+        @media screen and (max-width: 800px) {
+            margin-left: 0%;
+            margin-right: 0%;
+        }
     }
 
     .section { 
@@ -334,12 +338,18 @@ expression {
                 color: var(--white1);
                 border-radius: 3.5vw;
                 padding: 2.6vw;
+                @media screen and (max-width: 800px) {
+                    border-radius: 7vw;
+                    padding: 5vw;
+                }
                 transition: 0.3s;
                 text-align: center;
 
                 img {
-                    width: 4vw;
-                    height: 4.3vw;
+                    height: 4vw;
+                    @media screen and (max-width: 800px) {
+                        height: 8vw;
+                    }
                 }
             } div:hover {
                 cursor: pointer;
