@@ -115,6 +115,13 @@ expression {
         grid-template: "a" 300px "b" 60px "c" 40px;
         gap: 20px;
         padding-bottom: 50px;
+
+        @media screen and (max-width: 800px) {
+            grid-template: "a" 200px "b" 60px "c" 40px;
+            img {
+                width: 300px;
+            }
+        }
     }
 
     #IntroductionDivRight {
@@ -142,6 +149,9 @@ expression {
 
     #infoDiv {
         padding: 100px;
+        @media screen and (max-width: 800px) {
+            padding: 40px;
+        }
     }
 }
 
@@ -149,6 +159,17 @@ expression {
     #mainContentDiv {
         padding: 100px;
         padding-top: 70px;
+        @media screen and (max-width: 800px) {
+            padding: 35px;
+
+            h1 {
+                font-size: 40px;
+            }
+
+            img {
+                width: 80%;
+            }
+        }
     }
 }
 
@@ -204,7 +225,7 @@ expression {
         a {
             img {
                 @media screen and (max-width: 800px) {
-                    width: 150px;
+                    width: 100px;
                 }
             }
         }
@@ -212,7 +233,7 @@ expression {
         #signedDiv {
             display: none;
             @media screen and (max-width: 800px) {
-                p {font-size: 30px;}
+                p {font-size: 23px;}
             }
         }
     }
@@ -308,7 +329,7 @@ expression {
                 font-size: 3.6vw;
 
                 @media screen and (max-width: 800px) {
-                    font-size: 7.2vw;
+                    font-size: 9vw;
                 }
             }
 
@@ -316,7 +337,7 @@ expression {
                 font-size: 1.3vw;
 
                 @media screen and (max-width: 800px) {
-                    font-size: 3vw;
+                    font-size: 4.3vw;
                 }
             }
             
