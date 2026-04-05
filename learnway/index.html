@@ -185,8 +185,8 @@
                     }
                     const img = document.createElement("img");
                     img.src = `../stock-images/${figures[i % figures.length]}.png`;
-                    img.style.userSelect = "none";
-                    img.style.webkitUserDrag = "none";
+                    //img.style.userSelect = "none";
+                    //img.style.webkitUserDrag = "none";
                     div.appendChild(img);
 
                     div.addEventListener("mouseover", function () {
@@ -200,12 +200,6 @@
                         }
                     })
 
-                    if (sectionName == "section000") {
-                        alert(String(account));
-                        alert(String(account.progress))
-                        alert(String(account.progress.individualSections));
-                        alert(String(account.progress.individualSections[sectionName]));
-                    }
                     if (account.progress.individualSections[sectionName] && account.progress.individualSections[sectionName][i] != 4) {
                         div.addEventListener("click", function() {
                             window.location.href = `../lesson/?quiz=${sections[sectionName].quizzes[i][account.progress.individualSections[sectionName][i]]}`;
