@@ -1,164 +1,276 @@
 <html lang="en">
-    <head>
-        <title>PrimePudu | Learnway</title>
-        <meta name="keywords" content="Math, Free, Pudu, Prime, PrimePudu, Primes, Pudus, Learn, Friendly, Fun, Learning">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../style.css">
-        <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    </head>
-    <body class="learnwayBody">
-        <div id="contentDiv">
-            <div id="sectionsDiv"></div>
+
+<head>
+    <title>PrimePudu | Learnway</title>
+    <meta name="keywords" content="Math, Free, Pudu, Prime, PrimePudu, Primes, Pudus, Learn, Friendly, Fun, Learning">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+
+<body class="learnwayBody">
+    <div id="contentDiv">
+        <div id="sectionsDiv"></div>
+    </div>
+    <div id="warningDialog">
+        <div id="opt0" style="display: none;">
+            <h2>Are you sure?</h2><br>
+            <p>In PrimePudu, you can learn as many things as you want at the same time. However, it is suggested that you don't learn many sections at the same time, so that you don't lose focus on learning. These are the sections you are currently learning:</p>
+            <ul></ul>
+            <p id="confQuestion">Do you still want to learn the section: ?</p>
+            <div class="warningButtons">
+                <p>Better not</p>
+                <p>Yes, I do</p>
+            </div>
         </div>
-        <script src="../master.js"></script>
-        <script type="module">
-            orderHeader(1);
-            document.getElementsByTagName("header")[0].style.position = "sticky";
-            document.getElementsByTagName("header")[0].style.top = "0";
-            document.getElementsByTagName("header")[0].style.backgroundColor = "var(--white2)";
+        <div id="opt1">
+            <h2>Are you sure?</h2><br>
+            <p>Do you want to start this section? You can't close sections in PrimePudu, and it's ideal to finish them. Do you want to start this section?</p>
+            <br>
+            <div class="warningButtons">
+                <p>Better not</p>
+                <p>Yes, I do</p>
+            </div>
+        </div>
+    </div>
+    <script src="../master.js"></script>
+    <script type="module">
+        orderHeader(1);
 
-            if (localStorage.getItem("username")) {
-                document.getElementsByClassName("learnwayBody")[0].style.display = "block";
-            } else {
-                window.location.href = "../signin"
+        function startLearningSection(sectionName) {
+            const targetAccountId = localStorage.getItem("hashName");
+
+            fetch('/learn-section', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    accountId: targetAccountId,
+                    sectionName: sectionName,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = "../learnway"; // Redirect after success
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        document.getElementsByTagName("header")[0].style.position = "sticky";
+        document.getElementsByTagName("header")[0].style.top = "0";
+        document.getElementsByTagName("header")[0].style.backgroundColor = "var(--white2)";
+
+        if (localStorage.getItem("username")) {
+            document.getElementsByClassName("learnwayBody")[0].style.display = "block";
+        } else {
+            window.location.href = "../signin"
+        }
+
+        const sectionsDiv = document.getElementById("sectionsDiv");
+
+        let account;
+        async function loadUserProgress(accountId) {
+            try {
+                const response = await fetch(`/get-account/${accountId}`);
+                if (!response.ok) throw new Error('Account not found');
+                const data = await response.json();
+                // Example: Accessing the progress you just modified
+                account = data;
+                return data; // Return the data so await works properly
+            } catch (error) {
+                console.error('Error:', error);
+                throw error; // Re-throw so calling code knows it failed
             }
+        }
 
-            const sectionsDiv = document.getElementById("sectionsDiv");
+        // Call it with your target ID
+        await loadUserProgress(localStorage.getItem("hashName"));
 
-            let account;
-            async function loadUserProgress(accountId) {
-                try {
-                    const response = await fetch(`/get-account/${accountId}`);
-                    if (!response.ok) throw new Error('Account not found');
-                    const data = await response.json();
-                    // Example: Accessing the progress you just modified
-                    account = data;
-                    return data; // Return the data so await works properly
-                } catch (error) {
-                    console.error('Error:', error);
-                    throw error; // Re-throw so calling code knows it failed
+        fetch("sections.json").then(response => response.json()).then(sections => {
+            Object.keys(sections).forEach(sectionName => {
+                const section = sections[sectionName]
+                if (account.progress.completed.includes(sectionName)) {
+                    var usableColor = "#f2d200";
+                    var lightColor = "#f3e311";
+                    var colorList = ["", "", "", "", "#f2d200"];
+                } else if (Object.keys(account.progress.individualSections).includes(sectionName)) {
+                    var usableColor = section.color;
+                    var lightColor = section.lightercolor;
+                    var colorList = section.colorlist;
+                } else {
+                    var usableColor = "#999999";
+                    var colorList = ["#999999", "", "", "", ""];
                 }
-            }
 
-            // Call it with your target ID
-            await loadUserProgress(localStorage.getItem("hashName"));
 
-            fetch("sections.json").then(response => response.json()).then(sections => {
-                Object.keys(sections).forEach(sectionName => {
-                    const section = sections[sectionName]
-                    if (account.progress.completed.includes(sectionName)) {
-                        var usableColor = "#f2d200";                        
-                        var lightColor = "#f3e311";
-                        var colorList = ["", "", "", "", "#f2d200"];
-                    } else if (Object.keys(account.progress.individualSections).includes(sectionName)) {
-                        var usableColor = section.color;
-                        var lightColor = section.lightercolor;
-                        var colorList = section.colorlist;
-                    } else {
-                        var usableColor = "#999999";
-                        var colorList = ["#999999", "", "", "", ""];
-                    }
-                    
+                const sectionDiv = document.createElement("div");
+                sectionDiv.id = sectionName;
+                sectionDiv.className = "section";
+                if (Object.keys(sections).indexOf(sectionName) == 0) {
+                    sectionDiv.style.paddingTop = "0px";
+                }
+                if (Object.keys(sections).indexOf(sectionName) == Object.keys(sections).length - 1) {
+                    sectionDiv.style.borderBottom = "0px";
+                }
 
-                    const sectionDiv = document.createElement("div");
-                    sectionDiv.id = sectionName;
-                    sectionDiv.className = "section";
-                    if (Object.keys(sections).indexOf(sectionName) == 0) {
-                        sectionDiv.style.paddingTop = "0px";
-                    }
-                    if (Object.keys(sections).indexOf(sectionName) == Object.keys(sections).length - 1) {
-                        sectionDiv.style.borderBottom = "0px";
-                    }
-
-                    const descDiv = document.createElement("div");
-                    descDiv.id = "sectionDesc";
+                const descDiv = document.createElement("div");
+                descDiv.id = "sectionDesc";
+                if (Object.keys(account.progress.individualSections).includes(section)) {
                     if (section.lessonstheme != "") {
-                        descDiv.onclick = () => {window.location.href = "../learn/?lesson=" + section.lessonstheme}
+                    descDiv.onclick = () => { window.location.href = "../learn/?lesson=" + section.lessonstheme; }
                     }
-                    descDiv.innerHTML = `<h1>${section.name}</h1><p>${section.desc}</p>`;
-                    descDiv.style.backgroundColor = usableColor;
-                    descDiv.addEventListener("mouseover", function(){
-                        descDiv.style.backgroundColor = lightColor;
-                    })
-                    descDiv.addEventListener("mouseleave", function(){
-                        descDiv.style.backgroundColor = usableColor;
-                    })
-                    sectionDiv.appendChild(descDiv);
+                } else {
+                    descDiv.onclick = () => {
+                        if (Object.keys(account.progress.individualSections).length > 0) {
+                            toggleWarning(0);
+                            const ul = document.getElementById("opt0").getElementsByTagName("ul")[0];
+                            if (Object.keys(account.progress.individualSections).length < 5) {
+                                for (let i = 0; i < Object.keys(account.progress.individualSections).length; i++) {
+                                    const li = document.createElement("li");
+                                    li.textContent = sections[Object.keys(account.progress.individualSections)[i]].name;
+                                    ul.appendChild(li);
+                                }
+                            } else {
+                                for (let i = 0; i < 3; i++) {
+                                    const li = document.createElement("li");
+                                    li.textContent = sections[Object.keys(account.progress.individualSections)[i]].name;
+                                    ul.appendChild(li);
+                                }
+                                const li = document.createElement("li");
+                                li.textContent = `And ${Object.keys(account.progress.individualSections).length - 3} more`;
+                                ul.appendChild(li);
+                            }
+                            const opt = document.getElementById("opt0").getElementsByClassName("warningButtons")[0];
+                            opt.getElementsByTagName("p")[0].onclick = () => {toggleWarning(0)};
+                            opt.getElementsByTagName("p")[1].onclick = () => {startLearningSection(sectionName)};
 
-                    const quizzesDiv = document.createElement("div");
-                    quizzesDiv.id = "sectionGroup";
-                    const figures = ["sigma", "x", "reals", "pi"]
-                    let lowest = 0;
-                    for (let i = 0; i < 4; i++) {
-                        const div = document.createElement("div");
+                            document.getElementById("confQuestion").textContent = `Do you still want to learn the section: ${section.name}?`
+                        } else {
+                            toggleWarning(1);
+                            const opt = document.getElementById("opt1").getElementsByClassName("warningButtons")[0];
+                            opt.getElementsByTagName("p")[0].onclick = () => {toggleWarning(1)};
+                            opt.getElementsByTagName("p")[1].onclick = () => {startLearningSection(sectionName)};
+                        }
+                    }
+                }
+
+                descDiv.innerHTML = `<h1>${section.name}</h1><p>${section.desc}</p>`;
+                descDiv.style.backgroundColor = usableColor;
+                descDiv.addEventListener("mouseover", function () {
+                    descDiv.style.backgroundColor = lightColor;
+                })
+                descDiv.addEventListener("mouseleave", function () {
+                    descDiv.style.backgroundColor = usableColor;
+                })
+                sectionDiv.appendChild(descDiv);
+
+                const quizzesDiv = document.createElement("div");
+                quizzesDiv.id = "sectionGroup";
+                const figures = ["sigma", "x", "reals", "pi"]
+                let lowest = 0;
+                for (let i = 0; i < 4; i++) {
+                    const div = document.createElement("div");
+                    if (account.progress.individualSections[sectionName]) {
+                        div.style.backgroundColor = colorList[account.progress.individualSections[sectionName][i]];
+                        if (account.progress.individualSections[sectionName][i] < account.progress.individualSections[sectionName][lowest]) {
+                            lowest = i;
+                        }
+                    } else {
+                        div.style.backgroundColor = usableColor;
+                    }
+                    const img = document.createElement("img");
+                    img.src = `../stock-images/${figures[i % figures.length]}.png`;
+                    img.style.userSelect = "none";
+                    img.style.webkitUserDrag = "none";
+                    div.appendChild(img);
+
+                    div.addEventListener("mouseover", function () {
+                        div.style.backgroundColor = usableColor;
+                    })
+                    div.addEventListener("mouseleave", function () {
                         if (account.progress.individualSections[sectionName]) {
                             div.style.backgroundColor = colorList[account.progress.individualSections[sectionName][i]];
-                            if (account.progress.individualSections[sectionName][i] < account.progress.individualSections[sectionName][lowest]) {
-                                lowest = i;
-                            }
                         } else {
                             div.style.backgroundColor = usableColor;
                         }
-                        const img = document.createElement("img");
-                        img.src = `../stock-images/${figures[i % figures.length]}.png`;
-                        div.appendChild(img);
+                    })
 
-                        div.addEventListener("mouseover", function(){
-                            div.style.backgroundColor = usableColor;
+                    if (account.progress.individualSections[sectionName] && account.progress.individualSections[sectionName][i] != 4) {
+                        div.addEventListener("click", function () {
+                            window.location.href = `../lesson/?quiz=${sections[sectionName].quizzes[i][account.progress.individualSections[sectionName][i]]}`;
                         })
-                        div.addEventListener("mouseleave", function(){
-                            if (account.progress.individualSections[sectionName]) {
-                                div.style.backgroundColor = colorList[account.progress.individualSections[sectionName][i]];
-                            } else {
-                                div.style.backgroundColor = usableColor;
-                            }
-                        })
-
-                        if (account.progress.individualSections[sectionName] && account.progress.individualSections[sectionName][i] != 4) {
-                            div.addEventListener("click", function(){
-                                window.location.href = `../lesson/?quiz=${sections[sectionName].quizzes[i][account.progress.individualSections[sectionName][i]]}`; 
-                            })
-                        }
-
-                        quizzesDiv.appendChild(div);
                     }
-                    sectionDiv.appendChild(quizzesDiv);
 
-                    const testDiv = document.createElement("div");
-                    testDiv.id = "sectionQuiz";
-                    testDiv.innerHTML = `Take the quiz for: ${section.name}`;
+                    quizzesDiv.appendChild(div);
+                }
+                sectionDiv.appendChild(quizzesDiv);
+
+                const testDiv = document.createElement("div");
+                testDiv.id = "sectionQuiz";
+                testDiv.innerHTML = `Take the quiz for: ${section.name}`;
+                if (account.progress.individualSections[sectionName]) {
+                    testDiv.style.backgroundColor = colorList[account.progress.individualSections[sectionName][lowest]];
+                } else {
+                    testDiv.style.backgroundColor = usableColor;
+                }
+                testDiv.addEventListener("mouseover", function () {
+                    if (account.progress.individualSections[sectionName] == [4, 4, 4, 4]) {
+                        testDiv.style.backgroundColor = lightColor;
+                    } else {
+                        testDiv.style.cursor = "not-allowed"
+                    }
+
+                })
+                testDiv.addEventListener("mouseleave", function () {
                     if (account.progress.individualSections[sectionName]) {
                         testDiv.style.backgroundColor = colorList[account.progress.individualSections[sectionName][lowest]];
                     } else {
                         testDiv.style.backgroundColor = usableColor;
                     }
-                    testDiv.addEventListener("mouseover", function(){
-                        if (account.progress.individualSections[sectionName] == [4, 4, 4, 4]) {
-                            testDiv.style.backgroundColor = lightColor;
-                        } else {
-                            testDiv.style.cursor = "not-allowed"
-                        }
-                        
-                    })
-                    testDiv.addEventListener("mouseleave", function(){
-                        if (account.progress.individualSections[sectionName]) {
-                            testDiv.style.backgroundColor = colorList[account.progress.individualSections[sectionName][lowest]];
-                        } else {
-                            testDiv.style.backgroundColor = usableColor;
-                        }
-                    })
-                    sectionDiv.appendChild(testDiv);
-
-                    sectionsDiv.appendChild(sectionDiv);
                 })
+                sectionDiv.appendChild(testDiv);
 
-                for (let i = 0; i < sectionsDiv.children.length; i++) {
-                    const sectionChildren = sectionsDiv.children[i].querySelector("#sectionDesc").children
-                    for (let j = 0; j < sectionChildren.length; j++) {
-                        sectionChildren[j].className = "sectionpart"
-                    }
+                sectionsDiv.appendChild(sectionDiv);
+            })
+
+            for (let i = 0; i < sectionsDiv.children.length; i++) {
+                const sectionChildren = sectionsDiv.children[i].querySelector("#sectionDesc").children
+                for (let j = 0; j < sectionChildren.length; j++) {
+                    sectionChildren[j].className = "sectionpart"
+                }
+            }
+
+            let transitioned = false;
+            function toggleWarning(id) {
+                document.getElementById("opt0").style.display = "none";
+                document.getElementById("opt1").style.display = "none";
+                document.getElementById("opt" + id).style.display = "block";
+                if (!transitioned) {
+                    document.getElementById("warningDialog").style.display = "block";
+                    document.getElementById("warningDialog").style.opacity = "1";
+                    document.getElementById("warningDialog").style.filter = "blur(0px)";
+                    const contentDiv = document.getElementById("contentDiv");
+                    contentDiv.style.filter = "blur(5px) brightness(0.92)";
+                } else {
+                    document.getElementById("warningDialog").style.opacity = "0";
+                    document.getElementById("warningDialog").style.filter = "blur(2px)"
+                    document.getElementById("contentDiv").style.filter = ""
+                    document.getElementById("warningDialog").style.display = "none";
+                }
+                transitioned = !transitioned
+            }
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "k") {
+                    toggleWarning(0);
                 }
             })
-        </script>
-    </body>
+        })
+    </script>
+</body>
+
 </html>

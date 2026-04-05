@@ -81,4 +81,32 @@ app.post('/create-account', async (req, res) => {
   }
 });
 
+// The route to handle the lesson progress update
+app.post('/learn-section', async (req, res) => {
+  console.log("Request received:", req.body); // Check if data arrives
+
+  try {
+    const { accountId, sectionName } = req.body;
+    const updatePath = `progress.individualSections.${sectionName}`;
+    const progress = [0, 0, 0, 0]
+
+    const updatedAccount = await Account.findOneAndUpdate(
+      { accountId: accountId }, 
+      { [updatePath]: progress },
+      { new: true, upsert: true }
+    );
+
+    if (!updatedAccount) {
+      console.log("No account found with ID:", accountId); // Log if no match
+      return res.status(404).json({ error: "Account not found" });
+    }
+
+    console.log("Update successful!");
+    res.json(updatedAccount);
+  } catch (error) {
+    console.error("Server Error:", error);
+    res.status(500).send(error.message);
+  }
+});
+
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

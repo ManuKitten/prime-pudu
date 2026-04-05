@@ -21,6 +21,7 @@
 
     --gray1: rgb(154, 154, 161);
     --gray2: rgb(224, 224, 229);
+    --gray3: rgb(202, 202, 202);
 }
 
 a, a:active, a:hover {
@@ -200,6 +201,8 @@ expression {
 }
 
 .pageHeader {
+    z-index: 100;
+
     li {
         list-style: none;
         font-size: 15px;
@@ -295,14 +298,45 @@ expression {
 }
 
 .learnwayBody {
+    background-color: white;
     display: none;
-
-    /*@media screen and (max-width: 800px) {
-        background-color: red;
-    }*/
+    position: relative;
 
     #contentDiv {
         padding: 6.6vw;
+        transition: 0.1s;
+    }
+
+    #warningDialog {
+        display: block;
+        opacity: 0;
+        filter: blur(2px);
+        transition: filter 0.1s, opacity 0.1s;
+        background-color: var(--white1);
+        border: 1px solid var(--gray1);
+        position: fixed;
+        padding: 50px;
+        border-radius: 50px;
+        top: 6vw;
+        width: 300px;
+        left: calc(50% - 200px);
+
+        .warningButtons {
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(2, 1fr);
+
+            p {
+                padding: 10px;
+                border-radius: 10px;
+                text-align: center;
+                transition: 0.3s;
+            }
+            p:hover {
+                background-color: var(--gray3);
+                cursor: pointer;
+            }
+        }
     }
 
     #sectionsDiv {
