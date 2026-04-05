@@ -102,6 +102,10 @@ expression {
         display: grid;
         grid-template: "a b" auto;
         grid-template-columns: 50% 50%;
+
+        @media screen and (max-width: 800px) {
+            display: block;
+        }
     }
 
     #IntroductionDivLeft {
@@ -118,6 +122,10 @@ expression {
         background-image: url("stock-images/pudu.png");
         background-size: cover;
         background-position: center;
+
+        @media screen and (max-width: 800px) {
+            display: none;
+        }
     }
 
     #descp {
@@ -192,25 +200,43 @@ expression {
         padding: 18.5px;
         border-bottom: 1px solid var(--gray1);
         position: relative;
+
+        a {
+            img {
+                @media screen and (max-width: 800px) {
+                    width: 150px;
+                }
+            }
+        }
+
+        #signedDiv {
+            display: none;
+            @media screen and (max-width: 800px) {
+                p {font-size: 30px;}
+            }
+        }
     }
     #userOptionsDiv {
         display: none;
         position: absolute;
         right: 17px;
         top: 60px;
+        @media screen and (max-width: 800px) {
+            top: 85px;
+        }
         background-color: var(--white1);
         border: 1px solid var(--gray1);
         border-radius: 10px;
         padding: 10px;
+        @media screen and (max-width: 800px) {
+            padding: 20px;
+            font-size: 40px;
+        }
     }
 }
 
 .signInDiv {
     margin-left: auto;
-}
-
-#signedDiv {
-    display: none;
 }
 
 #signInButton {
@@ -221,7 +247,13 @@ expression {
 .signinTab {
     text-align: center;
     padding: 400px;
+    @media screen and (max-width: 800px) {
+        padding: 1vw;
+    }
     padding-top: 100px;
+    @media screen and (max-width: 800px) {
+        padding-top: 50px;
+    }
     padding-bottom: 0px;
 
     label {
@@ -244,8 +276,12 @@ expression {
 .learnwayBody {
     display: none;
 
+    /*@media screen and (max-width: 800px) {
+        background-color: red;
+    }*/
+
     #contentDiv {
-        padding: 100px;
+        padding: 6.6vw;
     }
 
     #sectionsDiv {
@@ -254,8 +290,8 @@ expression {
     }
 
     .section { 
-        padding-top: 90px;
-        padding-bottom: 90px;
+        padding-top: 6vw;
+        padding-bottom: 6vw;
         border-bottom: 3px solid var(--gray2);
         border-radius: 2px;
 
@@ -263,6 +299,22 @@ expression {
             padding: 30px;
             border-radius: 20px;
             transition: 0.3s;
+            
+            h1 {
+                font-size: 3.6vw;
+
+                @media screen and (max-width: 800px) {
+                    font-size: 7.2vw;
+                }
+            }
+
+            p {
+                font-size: 1.3vw;
+
+                @media screen and (max-width: 800px) {
+                    font-size: 3vw;
+                }
+            }
             
             .sectionpart {
                 color: var(--white1);
@@ -272,21 +324,22 @@ expression {
         }
 
         #sectionGroup {
-            padding: 40px;
+            padding: 2.6vw;
             display: grid;
             grid-template-columns: auto auto auto auto;
-            gap: 40px;
-            padding-left: 30px;
+            gap: 2.6vw;
+            padding-left: 2vw;
 
             div {
                 color: var(--white1);
-                border-radius: 40%;
-                padding: 40px;
+                border-radius: 3.5vw;
+                padding: 2.6vw;
                 transition: 0.3s;
+                text-align: center;
 
                 img {
-                    width: 60px;
-                    height: 60px;
+                    width: 4vw;
+                    height: 4.3vw;
                 }
             } div:hover {
                 cursor: pointer;
@@ -306,7 +359,7 @@ expression {
 
 .lessonBody {
     #contentDiv {
-        padding: 100px;
+        padding: 6.6vw;
 
         #lessonElements {
             width: 600px;
@@ -331,6 +384,9 @@ expression {
                     width: 10%;
                     border-radius: 6px;
                     height: 20px;
+                    @media screen and (max-width: 800px) {
+                        height: 30px;
+                    }
                     background-color: var(--gray1);
                     transition: 0.2s;
                 }
@@ -339,6 +395,9 @@ expression {
             #information {
                 color: var(--black1);
                 font-size: 21px;
+                @media screen and (max-width: 800px) {
+                    font-size: 27px;
+                }
             }
 
             #information, #instantLessonForm {
