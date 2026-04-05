@@ -8,23 +8,45 @@
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
 </head>
 
-<body class="signinTab">
-    <div id="mainGridDiv">
-        <a href="../">
+<body class="signinTab" style="padding-top:78px;">
+    <div id="mainGridDiv" style="gap:17px;">
+        <a>
             <img src="../stock-images/primepudu.png" width="300px" style="place-self: center;">
         </a>
-        <p>Sign In to PrimePudu</p>
+        <p>Create PrimePudu account</p>
         <form id="signInForm" style="text-align: left;">
             <label for="username">Username</label><br>
             <input id="username" type="text"><br>
             <label for="password">Password</label><br>
-            <input id="password" type="password"><br><br>
+            <input id="password" type="password"><br>
+            <label for="password2">Confirm Password</label><br>
+            <input id="password2" type="password"><br><br>
             <p id="errorText" style="color: red; margin-bottom: 10px; display: none;">Error</p>
             <button type="submit" style="width: 100%;">Submit</button>
         </form>
-        <a href="../create_account" style="font-size: 15px; color: var(--gray1)">Create an account</a>
     </div>
     <script>
+        function createAccount(name, data) {
+            fetch('/create-account', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    accountId: name,
+                    accountData: data
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = "../learnway"; // Redirect after success
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
         const form = document.getElementById("signInForm");
 
         async function sha256(text) {
@@ -40,6 +62,7 @@
 
             const usernameInput = document.getElementById("username").value;
             const passwordInput = document.getElementById("password").value;
+            const secondPassword = document.getElementById("password2").value;
             const hashedUsername = await sha256(usernameInput);
             const hashedPassword = await sha256(passwordInput);
 
@@ -63,20 +86,29 @@
             await getAccount(hashedUsername);
 
             console.log(account)
-            if (account) {
-                if (account.password == hashedPassword) {
+            if (!account) {
+                if (passwordInput == secondPassword) {
                     localStorage.setItem("username", usernameInput);
                     localStorage.setItem("password", passwordInput);
                     localStorage.setItem("hashName", hashedUsername);
-
-                    window.location.href = localStorage.getItem("previousUrl") || "..";
+                    const data = {
+                        password: hashedPassword,
+                        progress: {
+                            completed: [],
+                            individualSections: {
+                                section000: [0, 0, 0, 0]
+                            }
+                        }
+                    }
+                    console.log("las")
+                    createAccount(hashedUsername, data);
                 } else {
                     errorText.style.display = "block";
-                    errorText.textContent = "Error: Password incorrect"
+                    errorText.textContent = "Error: Passwords differ"
                 }
             } else {
                 errorText.style.display = "block";
-                errorText.textContent = "Error: User doesn't exist";
+                errorText.textContent = "Error: User already exists";
             }
         })
     </script>

@@ -16,7 +16,7 @@ function orderHeader(order) {
                                 <button id="signInButton" onclick="localStorage.setItem('previousUrl', '${window.location.pathname}'); window.location.href = '${location}signin';">Sign In</button>
                             </div>
                             <div id="signedDiv" class="signInDiv">
-                                <p class="clickableText" onclick="displayUserOptions()">Username</p>
+                                <p class="clickableText" onclick="displayUserOptions()" translate="no">Username</p>
                             </div>
                             <div id="userOptionsDiv">
                                 <ul id="userOptions">

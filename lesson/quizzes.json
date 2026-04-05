@@ -94,5 +94,101 @@
         ["-90 x (-5)", "write", "450"],
         ["100 / (-4)", "write", "-25"],
         ["-88 x (-10)", "write", "880"]
+    ],
+    "quizset0008": [
+        ["4 x (-3) + 2", "write", "-10"],
+        ["-2 x 5 + 6", "write", "-4"],
+        ["6 x (-4) + 3", "write", "-21"],
+        ["-3 x 2 + 5", "write", "-1"],
+        ["8 / (-2) + 7", "write", "3"],
+        ["-5 x 7 + 10", "write", "-25"],
+        ["3 x (-6) + 9", "write", "-9"],
+        ["-1 x 4 + 8", "write", "4"],
+        ["9 x (-2) + 6", "write", "-12"],
+        ["-4 x 3 + 2", "write", "-10"]
+    ],
+    "quizset0009": [
+        ["4 x (-3) + 2 x 5", "write", "-2"],
+        ["-2 x 5 + 6 x 3", "write", "8"],
+        ["6 x (-4) + 3 x 2", "write", "-18"],
+        ["-3 x 2 + 5 x 4", "write", "14"],
+        ["8 / (-2) + 7 x 3", "write", "17"],
+        ["-5 x 7 + 10 x 2", "write", "-15"],
+        ["3 x (-6) + 9 x 2", "write", "0"],
+        ["-1 x 4 + 8 x 3", "write", "20"],
+        ["9 x (-2) + 6 x 4", "write", "6"],
+        ["-4 x 3 + 2 x 5", "write", "-2"]
+    ],
+    "quizset000a": [
+        ["4 x (-3 + 2) x 5", "write", "-20"],
+        ["-2 x (5 + 6) x 2", "write", "-44"],
+        ["6 x (-4 + 3) x 3", "write", "-18"],
+        ["-3 x (2 + 5) x 2", "write", "-42"],
+        ["8 / (-2 + 6) x 4", "write", "8"],
+        ["-5 x (7 + 3) x 2", "write", "-100"],
+        ["3 x (-6 + 9) x 2", "write", "18"],
+        ["-1 x (4 + 8) x 3", "write", "-36"],
+        ["9 x (-2 + 6) x 2", "write", "72"],
+        ["-4 x (3 + 2) x 5", "write", "-100"]
+    ],
+    "quizset000b": [
+        ["4 x (-3 + 2 x 5)", "write", "28"],
+        ["-2 x (5 + 6 x 3)", "write", "-46"],
+        ["6 x (-4 + 3 x 2)", "write", "12"],
+        ["-3 x (2 + 5 x 4)", "write", "-66"],
+        ["8 / (-2 + 7 x 3)", "write", "8/19"],
+        ["-5 x (7 + 10 x 2)", "write", "-135"],
+        ["3 x (-6 + 9 x 2)", "write", "36"],
+        ["-1 x (4 + 8 x 3)", "write", "-28"],
+        ["9 x (-2 + 6 x 4)", "write", "198"],
+        ["-4 x (3 + 2 x 5)", "write", "-52"]
+    ],
+    "quizset000c": [
+        ["The temperature was 4°C and dropped by 3°C. What is the new temperature?", "write", "1"],
+        ["A diver is at -2 meters and rises 1 meter. Where is the diver now?", "write", "-1"],
+        ["You have 6 dollars and lose 4 dollars. How much do you have left?", "write", "2"],
+        ["A submarine is at -3 meters and rises 1 meter. What is its new position?", "write", "-2"],
+        ["The temperature is 8°C and increases by 2°C. What is the new temperature?", "write", "10"],
+        ["You owe 5 dollars and receive 7 dollars. What is your balance?", "write", "2"],
+        ["A diver is at -3 meters and descends 6 meters. Where is the diver now?", "write", "-9"],
+        ["You owe 1 dollar and receive 4 dollars. What is your balance?", "write", "3"],
+        ["The temperature is 9°C and drops 8°C. What is the new temperature?", "write", "1"],
+        ["A submarine is at -4 meters and rises 2 meters. What is its position?", "write", "-2"]
+    ],
+    "quizset000d": [
+        ["The temperature is 7°C and drops by 1°C. What is the new temperature?", "write", "6"],
+        ["You have 5 dollars and spend 7 dollars. What is your balance?", "write", "-2"],
+        ["A diver is at -13 meters and descends 16 meters. Where is the diver now?", "write", "-29"],
+        ["You have 5 dollars and lose 2 dollars. What remains?", "write", "3"],
+        ["A submarine is at -3 meters and descends 11 meters. What is its position?", "write", "-14"],
+        ["The temperature is 7°C and rises by 9°C. What is the new temperature?", "write", "16"],
+        ["You owe 13 dollars and receive 9 dollars. What is your balance?", "write", "-4"],
+        ["The temperature is 10°C and drops 9°C. What is the new temperature?", "write", "1"],
+        ["A diver is at -9 meters and descends 14 meters. Where is the diver now?", "write", "-23"],
+        ["You have 6 dollars and spend 13 dollars. What is your balance?", "write", "-7"]
+    ],
+    "quizset000e": [
+        ["The temperature is 12°C and drops by 4°C. What is the new temperature?", "write", "8"],
+        ["You have 15 dollars and spend 9 dollars. What is your balance?", "write", "6"],
+        ["A diver is at -20 meters and descends 25 meters. Where is the diver now?", "write", "-45"],
+        ["You have 18 dollars and lose 7 dollars. What remains?", "write", "11"],
+        ["A submarine is at -14 meters and rises 3 meters. What is its position?", "write", "-11"],
+        ["You owe 9 dollars and receive 12 dollars. What is your balance?", "write", "3"],
+        ["A diver is at -6 meters and descends 21 meters. Where is the diver now?", "write", "-27"],
+        ["You have 11 dollars and receive 8 dollars. What is your balance?", "write", "19"],
+        ["You owe 25 dollars and receive 10 dollars. What is your balance?", "write", "-15"],
+        ["You have 30 dollars and spend 18 dollars. What is your balance?", "write", "12"]
+    ],
+    "quizset000f": [
+        ["The temperature is 45°C and drops by 20°C. What is the new temperature?", "write", "25"],
+        ["You have 38 dollars and spend 15 dollars. What is your balance?", "write", "23"],
+        ["A diver is at -60 meters and descends 5 meters. Where is the diver now?", "write", "-65"],
+        ["You have 72 dollars and gain 18 dollars. What is your balance?", "write", "90"],
+        ["You have 55 dollars and lose 30 dollars. What remains?", "write", "25"],
+        ["You have 80 dollars and spend 95 dollars. What is your balance?", "write", "-15"],
+        ["A submarine is at -22 meters and rises 17 meters. What is its position?", "write", "-5"],
+        ["You have 90 dollars and lose 45 dollars. What remains?", "write", "45"],
+        ["You have 58 dollars and spend 100 dollars. What is your balance?", "write", "-42"],
+        ["You have 88 dollars and gain 10 dollars. What is your balance?", "write", "98"]
     ]
 }

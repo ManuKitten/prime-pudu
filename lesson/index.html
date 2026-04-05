@@ -37,7 +37,7 @@
             orderHeader(1);
 
             function upgradeLessonsAndGo(newSectionData) {
-                const targetAccountId = "5b437e726ab0f9a8eee0edf6950415a0545a2c0d1ea9e8b9421fbeb1fd3723a3";
+                const targetAccountId = localStorage.getItem("hashName");
 
                 fetch('/upgrade-lessons', {
                     method: 'POST',
@@ -73,6 +73,7 @@
             const instantLessonForm = document.getElementById("instantLessonForm");
             const textarea = document.getElementById("formTextarea");
             const checkbutton = document.getElementById("checkbutton");
+            let clickableCheckbutton = true;
 
             let question = 0;
 
@@ -124,7 +125,9 @@
                 showOnly(translate(quiz[question][1]))
 
                 checkbutton.addEventListener("click", function(){
+                    if (!clickableCheckbutton) return;
                     if (quiz[question][2] == textarea.value) {
+                        clickableCheckbutton = false;
                         checkbutton.style.backgroundColor = "33cc33";
                         checkbutton.textContent = "Correct";
                         setTimeout(function(){
@@ -145,6 +148,7 @@
                                         instantLessonForm.style.opacity = "1";
                                         checkbutton.style.backgroundColor = "var(--blue1)";
                                         checkbutton.textContent = "Check";
+                                        clickableCheckbutton = true;
                                     }, 300);
                                 } else {
                                     document.getElementById("lessonElements").style.opacity = "0";
@@ -155,7 +159,7 @@
                                     setTimeout(function(){
                                         document.getElementById("lessonElements").style.display = "none";
                                         document.getElementById("lessonCompleted").style.display = "grid";
-                                        document.getElementById("lessonCompleted").style.opacity = "1"
+                                        document.getElementById("lessonCompleted").style.opacity = "1";
                                     }, 300)
                                 }
                             }, 300)

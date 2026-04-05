@@ -64,4 +64,21 @@ app.post('/upgrade-lessons', async (req, res) => {
   }
 });
 
+app.post('/create-account', async (req, res) => {
+  try {
+    const { accountId, accountData } = req.body;
+
+    const updatedAccount = await Account.findOneAndUpdate(
+      { accountId: accountId }, 
+      accountData,
+      { new: true, upsert: true } // 'upsert' creates it if it's missing!
+    );
+
+    res.json(updatedAccount);
+  } catch (error) {
+    console.error("Server Error:", error);
+    res.status(500).send(error.message);
+  }
+});
+
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
